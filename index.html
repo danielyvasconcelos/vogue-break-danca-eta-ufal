@@ -577,28 +577,105 @@
   }
   .note-box p strong{ color:var(--ink); }
 
-  /* ---------- Style index / card grid ---------- */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
+  /* ---------- Style index / carousel ---------- */
+  .carousel{ position:relative; }
+  .carousel-frame{
+    display:flex;
+    align-items:center;
+    gap:clamp(10px, 2.4vw, 24px);
   }
+  .carousel-viewport{
+    flex:1;
+    min-width:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    outline:none;
+  }
+  .carousel-viewport:focus-visible{ outline:2px solid var(--crimson); outline-offset:-2px; }
+  .carousel-track{
+    display:flex;
+    transition:transform .55s cubic-bezier(.65,0,.35,1);
+    will-change:transform;
+  }
+  .car-slide{ flex:0 0 100%; min-width:0; width:100%; }
+
+  .car-arrow{
+    flex:0 0 auto;
+    width:44px;
+    height:44px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    padding:0;
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .car-arrow:hover{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .car-arrow:focus-visible{ outline:2px solid var(--crimson); outline-offset:2px; }
+  .car-arrow svg{ display:block; }
+
+  .carousel-meta{
+    display:flex;
+    align-items:center;
+    gap:clamp(16px, 3vw, 28px);
+    margin-top:22px;
+    flex-wrap:wrap;
+  }
+  .car-count{
+    font-family:"Bodoni Moda", serif;
+    font-size:.85rem;
+    color:var(--ink-soft);
+    letter-spacing:.04em;
+    flex:0 0 auto;
+  }
+  .car-count #carCurrent{ color:var(--ink); font-weight:600; }
+  .car-progress{
+    flex:1 1 140px;
+    height:1px;
+    background:var(--line);
+    position:relative;
+    min-width:80px;
+  }
+  .car-progress span{
+    position:absolute;
+    left:0; top:0;
+    height:1px;
+    width:0%;
+    background:var(--crimson);
+    transition:width .55s cubic-bezier(.65,0,.35,1);
+    display:block;
+  }
+  .car-dots{
+    display:flex;
+    gap:8px;
+    flex:0 0 auto;
+  }
+  .car-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    border:1px solid var(--ink-soft);
+    background:transparent;
+    padding:0;
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .car-dot:hover{ border-color:var(--ink); }
+  .car-dot.active{ background:var(--crimson); border-color:var(--crimson); transform:scale(1.15); }
+  .car-dot:focus-visible{ outline:2px solid var(--crimson); outline-offset:2px; }
+
   .card{
     background:var(--paper);
-    padding:clamp(24px, 3vw, 34px) clamp(22px, 3vw, 30px);
+    padding:clamp(32px, 5vw, 64px) clamp(26px, 5vw, 56px);
     display:flex;
     flex-direction:column;
     gap:.9rem;
-    opacity:0;
-    transform:translateY(14px);
-    animation:rise .6s ease forwards;
-    animation-play-state:paused;
+    justify-content:center;
+    min-height:clamp(260px, 32vw, 340px);
   }
-  .card.in-view{ animation-play-state:running; }
-  @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
-
   .card-top{
     display:flex;
     align-items:baseline;
@@ -620,14 +697,14 @@
     text-align:right;
   }
   .card h3{
-    font-size:1.5rem;
+    font-size:clamp(1.9rem, 4vw, 2.7rem);
     font-weight:600;
   }
   .card p{
     margin:0;
-    font-size:.94rem;
+    font-size:1rem;
     color:var(--ink-soft);
-    max-width:44ch;
+    max-width:58ch;
   }
   .card-era{
     margin-top:auto;
@@ -698,7 +775,8 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    .card{ animation:none !important; opacity:1 !important; transform:none !important; }
+    .carousel-track{ transition:none !important; }
+    .car-progress span{ transition:none !important; }
   }
 </style>
 
@@ -804,72 +882,95 @@
         <span class="section-num">04 &mdash; Tipos de danças urbanas</span>
       </div>
     </div>
-    <div class="wrap">
-      <div class="grid" id="card-grid">
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;01</span><span class="card-origin">Nova York, Bronx</span></div>
-          <h3>Hip Hop</h3>
-          <p>Abrange DJing, rap, graffiti e breaking. Criado por jovens afro-americanos e latinos em festas de rua, deu origem a estilos como o Hip-Hop Freestyle e o House Dance.</p>
-          <span class="card-era">Déc. 1970 &mdash; cultura-mãe</span>
-        </article>
+    <div class="carousel" id="stylesCarousel">
+      <div class="wrap">
+        <div class="carousel-frame">
+          <button class="car-arrow car-prev" id="carPrev" type="button" aria-label="Estilo anterior">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 4l-8 8 8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;02</span><span class="card-origin">Nova York, Bronx</span></div>
-          <h3>Breaking</h3>
-          <p>Também conhecido como breakdance, surgiu como alternativa ao envolvimento com o crime, dando aos jovens a chance de se destacarem de maneira positiva.</p>
-          <span class="card-era">Déc. 1970</span>
-        </article>
+          <div class="carousel-viewport" id="carViewport" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Índice de estilos de dança">
+            <div class="carousel-track" id="carTrack">
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;03</span><span class="card-origin">Costa Oeste, EUA</span></div>
-          <h3>Popping</h3>
-          <p>Estilo funk inventado pelo grupo Electric Boogaloos. Nas festas disco do início dos anos 70, dançarinos imitavam o robô ou faziam movimentos ondulatórios ao som do funk.</p>
-          <span class="card-era">Déc. 1970</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;01</span><span class="card-origin">Nova York, Bronx</span></div>
+                <h3>Breaking</h3>
+                <p>Também conhecido como breakdance, surgiu como alternativa ao envolvimento com o crime, dando aos jovens a chance de se destacarem de maneira positiva.</p>
+                <span class="card-era">Déc. 1970</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;04</span><span class="card-origin">Los Angeles</span></div>
-          <h3>Locking</h3>
-          <p>Inventado por Don &ldquo;Campbellock&rdquo; Campbell e seu grupo The Lockers, surgiu &mdash; como o popping &mdash; durante as festas de música funk.</p>
-          <span class="card-era">Déc. 1970</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;02</span><span class="card-origin">Costa Oeste, EUA</span></div>
+                <h3>Popping</h3>
+                <p>Estilo funk inventado pelo grupo Electric Boogaloos. Nas festas disco do início dos anos 70, dançarinos imitavam o robô ou faziam movimentos ondulatórios ao som do funk.</p>
+                <span class="card-era">Déc. 1970</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;05</span><span class="card-origin">Los Angeles</span></div>
-          <h3>Krumping</h3>
-          <p>Evoluiu do clowning. Dançarinos como Tight Eyez e Big Mijo transformaram os movimentos de palhaço em algo mais agressivo e emocional.</p>
-          <span class="card-era">Início déc. 1990</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;03</span><span class="card-origin">Los Angeles</span></div>
+                <h3>Locking</h3>
+                <p>Inventado por Don &ldquo;Campbellock&rdquo; Campbell e seu grupo The Lockers, surgiu &mdash; como o popping &mdash; durante as festas de música funk.</p>
+                <span class="card-era">Déc. 1970</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;06</span><span class="card-origin">Nova York &amp; Chicago</span></div>
-          <h3>House Dance</h3>
-          <p>Surgiu com a ascensão da música house. Nos clubes e festas de Nova York e Chicago, os movimentos nasciam naturalmente ao ritmo da batida.</p>
-          <span class="card-era">Déc. 1980</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;04</span><span class="card-origin">Los Angeles</span></div>
+                <h3>Krumping</h3>
+                <p>Evoluiu do clowning. Dançarinos como Tight Eyez e Big Mijo transformaram os movimentos de palhaço em algo mais agressivo e emocional.</p>
+                <span class="card-era">Início déc. 1990</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;07</span><span class="card-origin">Los Angeles</span></div>
-          <h3>Whacking</h3>
-          <p>Criado pela comunidade LGBTQIA+ negra e latina como resposta ao Locking, originalmente dançado quase só por homens heterossexuais.</p>
-          <span class="card-era">Déc. 1970</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;05</span><span class="card-origin">Nova York &amp; Chicago</span></div>
+                <h3>House Dance</h3>
+                <p>Surgiu com a ascensão da música house. Nos clubes e festas de Nova York e Chicago, os movimentos nasciam naturalmente ao ritmo da batida.</p>
+                <span class="card-era">Déc. 1980</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;08</span><span class="card-origin">Nova York</span></div>
-          <h3>Vogueing</h3>
-          <p>Nascido na cultura Ballroom, também criado pela comunidade LGBTQIA+ negra e latina como forma de autoexpressão e resistência.</p>
-          <span class="card-era">Déc. 1980</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;06</span><span class="card-origin">Los Angeles</span></div>
+                <h3>Whacking</h3>
+                <p>Criado pela comunidade LGBTQIA+ negra e latina como resposta ao Locking, originalmente dançado quase só por homens heterossexuais.</p>
+                <span class="card-era">Déc. 1970</span>
+              </article>
 
-        <article class="card">
-          <div class="card-top"><span class="card-num">N&ordm;09</span><span class="card-origin">Jamaica &amp; Caribe</span></div>
-          <h3>Dancehall</h3>
-          <p>Mistura de gêneros e estilos jamaicanos e caribenhos &mdash; rastafari, myal e junkanoo &mdash; danças espirituais nascidas de crenças culturais.</p>
-          <span class="card-era">Raízes caribenhas</span>
-        </article>
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;07</span><span class="card-origin">Nova York</span></div>
+                <h3>Vogueing</h3>
+                <p>Nascido na cultura Ballroom, também criado pela comunidade LGBTQIA+ negra e latina como forma de autoexpressão e resistência.</p>
+                <span class="card-era">Déc. 1980</span>
+              </article>
 
+              <article class="card car-slide">
+                <div class="card-top"><span class="card-num">N&ordm;08</span><span class="card-origin">Jamaica &amp; Caribe</span></div>
+                <h3>Dancehall</h3>
+                <p>Mistura de gêneros e estilos jamaicanos e caribenhos &mdash; rastafari, myal e junkanoo &mdash; danças espirituais nascidas de crenças culturais.</p>
+                <span class="card-era">Raízes caribenhas</span>
+              </article>
+
+            </div>
+          </div>
+
+          <button class="car-arrow car-next" id="carNext" type="button" aria-label="Próximo estilo">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="carousel-meta">
+          <span class="car-count"><span id="carCurrent">01</span> / <span id="carTotal">08</span></span>
+          <div class="car-progress"><span id="carProgressBar"></span></div>
+          <div class="car-dots" id="carDots" role="tablist" aria-label="Selecionar estilo">
+            <button class="car-dot" type="button" role="tab" aria-label="Breaking" data-index="0"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Popping" data-index="1"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Locking" data-index="2"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Krumping" data-index="3"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="House Dance" data-index="4"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Whacking" data-index="5"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Vogueing" data-index="6"></button>
+            <button class="car-dot" type="button" role="tab" aria-label="Dancehall" data-index="7"></button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1046,7 +1147,7 @@
         </div>
         <div class="footer-credits">
           <p class="note note-course">Disciplina de História e Estética da Dança &mdash; profa. Ana Clara</p>
-          <p class="note">Trabalho desenvolvido pelos alunos do curso Técnico em Dança da ETA UFAL: Daniely Evellin da Silva Vasconcelos, Andrick Nahi Moreira Alves, Sofia de Oliveira Nascimento Chagas Araújo, André e Washington.</p>
+          <p class="note">Trabalho desenvolvido pelos alunos do curso Técnico em Dança da ETA UFAL: Daniely Evellin da Silva Vasconcelos, Andrick Nahi Moreira Alves, Sofia de Oliveira Nascimento Chagas Araújo, André e Washington Calheiros de Sá.</p>
         </div>
       </div>
     </div>
@@ -1092,21 +1193,88 @@
   })();
 
   (function(){
-    var cards = document.querySelectorAll('.card');
-    if(!('IntersectionObserver' in window) || !cards.length){
-      cards.forEach(function(c){ c.classList.add('in-view'); });
-      return;
-    }
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry, i){
-        if(entry.isIntersecting){
-          entry.target.style.animationDelay = (i % 3) * 60 + 'ms';
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
+    var track = document.getElementById('carTrack');
+    var viewport = document.getElementById('carViewport');
+    if(!track || !viewport) return;
+
+    var prevBtn = document.getElementById('carPrev');
+    var nextBtn = document.getElementById('carNext');
+    var dotsWrap = document.getElementById('carDots');
+    var currentEl = document.getElementById('carCurrent');
+    var totalEl = document.getElementById('carTotal');
+    var progressBar = document.getElementById('carProgressBar');
+
+    var slides = Array.prototype.slice.call(track.querySelectorAll('.car-slide'));
+    var dots = dotsWrap ? Array.prototype.slice.call(dotsWrap.querySelectorAll('.car-dot')) : [];
+    var total = slides.length;
+    var index = 0;
+
+    function pad(n){ n = n + 1; return n < 10 ? '0' + n : String(n); }
+
+    function render(){
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      if(currentEl) currentEl.textContent = pad(index);
+      if(totalEl) totalEl.textContent = pad(total - 1);
+      if(progressBar) progressBar.style.width = ((index + 1) / total * 100) + '%';
+      dots.forEach(function(d, i){
+        var active = i === index;
+        d.classList.toggle('active', active);
+        d.setAttribute('aria-selected', active ? 'true' : 'false');
       });
-    }, { threshold: 0.15 });
-    cards.forEach(function(c){ io.observe(c); });
+    }
+
+    function goTo(i){
+      index = (i + total) % total;
+      render();
+    }
+    function next(){ goTo(index + 1); }
+    function prev(){ goTo(index - 1); }
+
+    if(prevBtn) prevBtn.addEventListener('click', prev);
+    if(nextBtn) nextBtn.addEventListener('click', next);
+    dots.forEach(function(d, i){
+      d.addEventListener('click', function(){ goTo(i); });
+    });
+
+    viewport.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+      else if(e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+    });
+
+    var startX = null, deltaX = 0, dragging = false;
+
+    function dragStart(x){
+      startX = x; deltaX = 0; dragging = true;
+      track.style.transition = 'none';
+    }
+    function dragMove(x){
+      if(!dragging) return;
+      deltaX = x - startX;
+      var pct = (deltaX / viewport.clientWidth) * 100;
+      track.style.transform = 'translateX(calc(-' + (index * 100) + '% + ' + pct + '%))';
+    }
+    function dragEnd(){
+      if(!dragging) return;
+      dragging = false;
+      track.style.transition = '';
+      var threshold = viewport.clientWidth * 0.16;
+      if(deltaX > threshold) prev();
+      else if(deltaX < -threshold) next();
+      else render();
+    }
+
+    viewport.addEventListener('touchstart', function(e){ dragStart(e.touches[0].clientX); }, { passive:true });
+    viewport.addEventListener('touchmove', function(e){ dragMove(e.touches[0].clientX); }, { passive:true });
+    viewport.addEventListener('touchend', dragEnd);
+
+    var mouseDown = false;
+    viewport.addEventListener('mousedown', function(e){ mouseDown = true; dragStart(e.clientX); e.preventDefault(); });
+    window.addEventListener('mousemove', function(e){ if(mouseDown) dragMove(e.clientX); });
+    window.addEventListener('mouseup', function(){ if(mouseDown){ mouseDown = false; dragEnd(); } });
+
+    window.addEventListener('resize', render);
+
+    render();
   })();
 
   (function(){
