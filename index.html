@@ -164,6 +164,65 @@
     gap:.6em;
     transition:color .15s ease;
   }
+  .menu-overlay{ max-height:calc(100vh - 90px); overflow-y:auto; }
+  .menu-overlay nav .menu-group{ border-bottom:1px solid var(--line); }
+  .menu-overlay nav .menu-group-btn{
+    appearance:none;
+    background:none;
+    border:none;
+    width:100%;
+    cursor:pointer;
+    font-family:"Work Sans", sans-serif;
+    font-size:.8rem;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink);
+    padding:9px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    text-align:left;
+    transition:color .15s ease;
+  }
+  .menu-overlay nav .menu-group-btn:hover, .menu-overlay nav .menu-group-btn:focus-visible{ color:var(--crimson); }
+  .menu-overlay nav .menu-group-btn .chev{
+    font-size:.7rem;
+    color:var(--crimson);
+    transition:transform .2s ease;
+  }
+  .menu-overlay nav .menu-group-btn[aria-expanded="true"] .chev{ transform:rotate(180deg); }
+  .menu-overlay nav .submenu{
+    display:none;
+    flex-direction:column;
+    margin:0 0 8px;
+    padding-left:12px;
+    border-left:2px solid var(--crimson);
+  }
+  .menu-overlay nav .submenu.open{ display:flex; }
+  .menu-overlay nav .submenu a{ font-weight:500; font-size:.74rem; padding:7px 0; }
+  .menu-overlay nav > a{ font-weight:700; }
+  .menu-overlay nav .menu-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; border-bottom:1px solid var(--line); }
+  .menu-overlay nav .menu-row a{ border-bottom:none; flex:1; }
+  .menu-overlay nav .menu-row-btn{ width:auto; padding:9px 4px; }
+  .menu-overlay nav .submenu-deep a{ text-transform:none; letter-spacing:0; font-size:.7rem; line-height:1.3; }
+  .interview-block{ margin-top:clamp(32px, 5vw, 56px); }
+  .interview-block:first-child{ margin-top:0; }
+  .interview-title{ font-size:clamp(1.15rem, 2.2vw, 1.5rem); margin-bottom:1rem; scroll-margin-top:90px; }
+  .interview-block{ scroll-margin-top:90px; }
+  .interview + .interview{ margin-top:clamp(56px, 8vw, 96px); padding-top:clamp(32px, 5vw, 56px); border-top:1px solid var(--line); }
+  .interview-soon{ font-family:"Bodoni Moda", serif; color:var(--ink-soft); margin:0; }
+  .interview-media{ display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; justify-content:center; }
+  .interview-photo{ width:min(100%, 340px); }
+  .photo.interview-photo .frame{ aspect-ratio:auto; background:#0a0a09; }
+  .photo.interview-photo-wide{ width:min(100%, 560px); }
+  .photo.interview-photo-full{ width:100%; }
+  .photo.interview-photo-glossary{ width:min(100%, 460px); }
+  .photo.interview-photo.interview-photo-glossary img{ max-height:none; }
+  .photo.interview-photo.interview-photo-glossary .frame{ background:var(--paper-alt); }
+  .photo.interview-photo-feature{ width:min(100%, 820px); flex:0 0 auto; }
+  .photo.interview-photo img{ height:auto; max-height:70vh; object-fit:contain; background:#0a0a09; }
+  .photo.interview-photo video{ display:block; width:100%; height:100%; object-fit:contain; background:#0a0a09; }
   .menu-overlay nav a:last-child{ border-bottom:none; }
   .menu-overlay nav a .idx{
     font-family:"Bodoni Moda", serif;
@@ -1125,17 +1184,70 @@
     </button>
     <div class="menu-overlay" id="menuOverlay">
       <nav aria-label="Seções">
-        <a href="#origem"><span class="idx">01</span>Origem</a>
-        <a href="#seculo-60"><span class="idx">02</span>1960</a>
-        <a href="#seculo-70"><span class="idx">03</span>1970</a>
-        <a href="#estilos"><span class="idx">04</span>Estilos</a>
-        <a href="#vogue-break"><span class="idx">05</span>Vogue &amp; Break</a>
-        <a href="#evolucao-vogue"><span class="idx">06</span>Evolução do Vogue</a>
-        <a href="#evolucao-break"><span class="idx">07</span>Evolução do Break</a>
-        <a href="#cruzamentos"><span class="idx">08</span>Cruzamentos</a>
-        <a href="#elementos-tecnicos"><span class="idx">09</span>Elementos Técnicos</a>
-        <a href="#video-danca"><span class="idx">10</span>Vídeo</a>
-        <a href="#indicacoes"><span class="idx">11</span>Indicações</a>
+        <div class="menu-group">
+          <button class="menu-group-btn" id="historiaBtn" type="button" aria-expanded="true" aria-controls="historiaMenu">História <span class="chev" aria-hidden="true">&#9662;</span></button>
+          <div class="submenu open" id="historiaMenu">
+          <a href="#origem"><span class="idx">01</span>Origem</a>
+          <a href="#seculo-60"><span class="idx">02</span>1960</a>
+          <a href="#seculo-70"><span class="idx">03</span>1970</a>
+          <a href="#estilos"><span class="idx">04</span>Estilos</a>
+          <a href="#vogue-break"><span class="idx">05</span>Vogue &amp; Break</a>
+          <a href="#evolucao-vogue"><span class="idx">06</span>Evolução do Vogue</a>
+          <a href="#evolucao-break"><span class="idx">07</span>Evolução do Break</a>
+          <a href="#cruzamentos"><span class="idx">08</span>Cruzamentos</a>
+          <a href="#elementos-tecnicos"><span class="idx">09</span>Elementos Técnicos</a>
+          <a href="#video-danca"><span class="idx">10</span>Vídeo</a>
+          <a href="#indicacoes"><span class="idx">11</span>Indicações</a>
+          </div>
+        </div>
+        <div class="menu-group">
+          <div class="menu-row">
+            <a href="#entrevistas">Entrevistas</a>
+            <button class="menu-group-btn menu-row-btn" type="button" aria-expanded="true" aria-controls="entrevistasMenu" aria-label="Abrir ou fechar Entrevistas"><span class="chev" aria-hidden="true">&#9662;</span></button>
+          </div>
+          <div class="submenu open" id="entrevistasMenu">
+            <div class="menu-row">
+              <a href="#entrevista-manel">Manel</a>
+              <button class="menu-group-btn menu-row-btn" type="button" aria-expanded="false" aria-controls="manelMenu" aria-label="Abrir ou fechar Manel"><span class="chev" aria-hidden="true">&#9662;</span></button>
+            </div>
+            <div class="submenu submenu-deep" id="manelMenu">
+              <a href="#manel-1">1 - father</a>
+              <a href="#manel-2">2 - house of eXcaliburrr</a>
+              <a href="#manel-3">3 - Vanessa eXcaliburrr</a>
+              <a href="#manel-4">5 - Teshy eXcaliburrr</a>
+              <a href="#manel-5">5 - Dolf eXcaliburrr</a>
+              <a href="#manel-6">6 - Princess Ártemis eXcaliburrr</a>
+              <a href="#manel-7">7 - Manel na House of Nyxie</a>
+              <a href="#manel-8">8 - O dia que manel enfrentou um legendary em fortaleza</a>
+              <a href="#manel-9">9 - uma imagem do Father caminhando em cada estilo de vogue</a>
+              <a href="#manel-11">11 - Manel protagonizando momento histórico: primeira batalha de New Way do Norte e Nordeste em Fortaleza</a>
+              <a href="#manel-12">12 - eXcaliburrr São Paulo</a>
+              <a href="#manel-13">13 - eXcaliburrr Belém</a>
+              <a href="#manel-14">14 - eXcaliburrr Maranhão</a>
+              <a href="#manel-15">15 - eXcaliburrr Ceará (atualmente fechada)</a>
+              <a href="#manel-16">16 - Projeto mais recente: Oficina de Vogue na ETA no evento Veste&amp;Dança organizado pela turma veterana de dança de 2025.</a>
+              <a href="#manel-17">17 - Projeto em paralelo aprovado pela PNAB, que acontece na ETA: Imersão Diversidança por Vanessa eXcaliburrr</a>
+              <a href="#manel-18">18 - Principal projeto de inclusão a pessoas com deficiência na ballroom: eXcaliball</a>
+              <a href="#manel-entrevista">Entrevista na íntegra</a>
+              <a href="#manel-glossario">Glossário</a>
+            </div>
+            <div class="menu-row">
+              <a href="#entrevista-negolove">Negolove</a>
+              <button class="menu-group-btn menu-row-btn" type="button" aria-expanded="false" aria-controls="negoloveMenu" aria-label="Abrir ou fechar Negolove"><span class="chev" aria-hidden="true">&#9662;</span></button>
+            </div>
+            <div class="submenu submenu-deep" id="negoloveMenu">
+              <a href="#negolove-1">Tópico 1</a>
+              <a href="#negolove-2">Tópico 2</a>
+              <a href="#negolove-3">Tópico 3</a>
+              <a href="#negolove-4">Tópico 4</a>
+              <a href="#negolove-5">Tópico 5</a>
+              <a href="#negolove-6">Tópico 6</a>
+              <a href="#negolove-7">Tópico 7</a>
+              <a href="#negolove-8">Tópico 8</a>
+              <a href="#negolove-entrevista">Entrevista na íntegra</a>
+            </div>
+          </div>
+        </div>
       </nav>
       <p class="menu-foot">Danças Urbanas Norte Americanas</p>
     </div>
@@ -1981,6 +2093,354 @@
     </div>
   </section>
 
+  <section id="entrevistas">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Entrevistas</h2>
+      </div>
+      <div class="interview" id="entrevista-manel">
+        <div class="section-head">
+          <h2>Manel</h2>
+          <span class="section-num">Manel (Founding Father Manel eXcaliburrr)</span>
+        </div>
+        <div class="interview-block" id="manel-1">
+          <h3 class="interview-title">1 - father</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/1.jpg" alt="Founding Father Manel eXcaliburrr na primeira eXcaliball"></div>
+              <figcaption>Founding Father Manel eXcaliburrr na primeira eXcaliball</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-2">
+          <h3 class="interview-title">2 - house of eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/2_1.jpg" alt="Membros da House of eXcaliburrr na Afrodity Ball"></div>
+              <figcaption>Membros da House of eXcaliburrr na Afrodity Ball</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/2_2.jpg" alt="Membros da House of excaliburr na eXcaliball: baile da colheita"></div>
+              <figcaption>Membros da House of excaliburr na eXcaliball: baile da colheita</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-3">
+          <h3 class="interview-title">3 - Vanessa eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/3_1.jpg" alt="Vanessa eXcaliburr na primeira eXcaliball"></div>
+              <figcaption>Vanessa eXcaliburr na primeira eXcaliball</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/3_2.jpg" alt="Vanessa eXcaliburrr na primeira Intergalaxy Ball"></div>
+              <figcaption>Vanessa eXcaliburrr na primeira Intergalaxy Ball</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-4">
+          <h3 class="interview-title">5 - Teshy eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/4_1.jpg" alt="Teshy eXcaliburrr ganhadora do prêmio de melhor Arms Control do ano pela Norte e Nordeste"></div>
+              <figcaption>Teshy eXcaliburrr ganhadora do prêmio de melhor Arms Control do ano pela Norte e Nordeste</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:720/1280"><video controls playsinline preload="none" poster="midias_renomeadas/web/4_2-poster.jpg" src="midias_renomeadas/web/4_2.mp4" aria-label="Teshy eXcaliburrr dançando Old Way em treino aberto"></video></div>
+              <figcaption>Teshy eXcaliburrr dançando Old Way em treino aberto</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-5">
+          <h3 class="interview-title">5 - Dolf eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/5_1.jpg" alt="Dolf eXcaliburrr na Afrodity Ball"></div>
+              <figcaption>Dolf eXcaliburrr na Afrodity Ball</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/5_2.jpg" alt="Dolf eXcaliburrr na Peytudah Ball"></div>
+              <figcaption>Dolf eXcaliburrr na Peytudah Ball</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-6">
+          <h3 class="interview-title">6 - Princess Ártemis eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/6_2.jpg" alt="Princess Ártemis eXcaliburrr em performance de mãos"></div>
+              <figcaption>Princess Ártemis eXcaliburrr em performance de mãos</figcaption>
+            </figure>
+            <figure class="photo interview-photo interview-photo-feature">
+              <div class="frame" style="aspect-ratio:1280/720"><video controls playsinline preload="none" poster="midias_renomeadas/web/6_1-poster.jpg" src="midias_renomeadas/web/6_1.mp4" aria-label="Princess Ártemis eXcaliburrr para banca de júri da Black Essence Ball"></video></div>
+              <figcaption>Princess Ártemis eXcaliburrr para banca de júri da Black Essence Ball</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-7">
+          <h3 class="interview-title">7 - Manel na House of Nyxie</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:360/640"><video controls playsinline preload="none" poster="midias_renomeadas/web/7-poster.jpg" src="midias_renomeadas/web/7.mp4" aria-label="Manel Nyxie antes de seu primeiro prêmio em vogue"></video></div>
+              <figcaption>Manel Nyxie antes de seu primeiro prêmio em vogue</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-8">
+          <h3 class="interview-title">8 - O dia que manel enfrentou um legendary em fortaleza</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo interview-photo-wide">
+              <div class="frame" style="aspect-ratio:848/448"><video controls playsinline preload="none" poster="midias_renomeadas/web/8-poster.jpg" src="midias_renomeadas/web/8.mp4" aria-label="Founding Father Manel eXcaliburrr Vs Upcoming Legendary Orion 007 em fortaleza"></video></div>
+              <figcaption>Founding Father Manel eXcaliburrr Vs Upcoming Legendary Orion 007 em fortaleza</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-9">
+          <h3 class="interview-title">9 - uma imagem do Father caminhando em cada estilo de vogue</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:1080/1920"><video controls playsinline preload="none" poster="midias_renomeadas/web/9_1-poster.jpg" src="midias_renomeadas/web/9_1.mp4" aria-label="Founding Father Manel eXcaliburrr dançando vogue femme na Ball do Orgulho"></video></div>
+              <figcaption>Founding Father Manel eXcaliburrr dançando vogue femme na Ball do Orgulho</figcaption>
+            </figure>
+            <figure class="photo interview-photo interview-photo-wide">
+              <div class="frame" style="aspect-ratio:1920/1080"><video controls playsinline preload="none" src="midias_renomeadas/web/9_2.mp4" aria-label="Founding Father Manel eXcaliburrr dançando new way em fortaleza no Rollcall de Juri"></video></div>
+              <figcaption>Founding Father Manel eXcaliburrr dançando new way em fortaleza no Rollcall de Juri</figcaption>
+            </figure>
+            <figure class="photo interview-photo interview-photo-wide">
+              <div class="frame" style="aspect-ratio:1280/720"><video controls playsinline preload="none" poster="midias_renomeadas/web/9_3-poster.jpg" src="midias_renomeadas/web/9_3.mp4" aria-label="Manel 007 (atual eXcaliburrr) batalhando old way contra Isaac 007 (atual Ratturas)"></video></div>
+              <figcaption>Manel 007 (atual eXcaliburrr) batalhando old way contra Isaac 007 (atual Ratturas)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-10">
+          <!-- TODO: título/legenda do item 10 pendente -->
+          <div class="interview-media">
+            <figure class="photo interview-photo interview-photo-wide">
+              <div class="frame" style="aspect-ratio:848/464"><video controls playsinline preload="none" poster="midias_renomeadas/web/10-poster.jpg" src="midias_renomeadas/web/10.mp4" aria-label=""></video></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-11">
+          <h3 class="interview-title">11 - Manel protagonizando momento histórico: primeira batalha de New Way do Norte e Nordeste em Fortaleza</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/11.jpg" alt="Founding Father Manel eXcaliburrr Vs. Prince Daniel Império, primeira batalha de vogue new way da história do Norte e Nordeste. — Fortaleza - PE"></div>
+              <figcaption>Founding Father Manel eXcaliburrr Vs. Prince Daniel Império, primeira batalha de vogue new way da história do Norte e Nordeste. — Fortaleza - PE</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-12">
+          <h3 class="interview-title">12 - eXcaliburrr São Paulo</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/12.jpg" alt="Morgan eXcaliburr na primeira eXcaliball (ambas as imagens)"></div>
+              <figcaption>Morgan eXcaliburr na primeira eXcaliball (ambas as imagens)</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-13">
+          <h3 class="interview-title">13 - eXcaliburrr Belém</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/13_1.jpg" alt="Sinopa 007 (atual)"></div>
+              <figcaption>Sinopa 007 (atual)</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:576/576"><video controls playsinline preload="none" poster="midias_renomeadas/web/13_2-poster.jpg" src="midias_renomeadas/web/13_2.mp4" aria-label="Sinopa 007 performando new way em Belém"></video></div>
+              <figcaption>Sinopa 007 performando new way em Belém</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-14">
+          <h3 class="interview-title">14 - eXcaliburrr Maranhão</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/14_1.jpg" alt="Star Godmother Zênite La Ursa eXcaliburrr"></div>
+              <figcaption>Star Godmother Zênite La Ursa eXcaliburrr</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:720/1280"><video controls playsinline preload="none" poster="midias_renomeadas/web/14_2-poster.jpg" src="midias_renomeadas/web/14_2.mp4" aria-label="Star La Ursa 007 (atual Godmother eXcaliburrr) performando vogue femme em Rollcall de juri"></video></div>
+              <figcaption>Star La Ursa 007 (atual Godmother eXcaliburrr) performando vogue femme em Rollcall de juri</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-15">
+          <h3 class="interview-title">15 - eXcaliburrr Ceará (atualmente fechada)</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/15.jpg" alt="Membros da House of eXcaliburrr capítulo Ceará em Fortaleza"></div>
+              <figcaption>Membros da House of eXcaliburrr capítulo Ceará em Fortaleza</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-16">
+          <h3 class="interview-title">16 - Projeto mais recente: Oficina de Vogue na ETA no evento Veste&amp;Dança organizado pela turma veterana de dança de 2025.</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/16.jpg" alt="16 - Projeto mais recente: Oficina de Vogue na ETA no evento Veste&amp;Dança organizado pela turma veterana de dança de 2025."></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-17">
+          <h3 class="interview-title">17 - Projeto em paralelo aprovado pela PNAB, que acontece na ETA: Imersão Diversidança por Vanessa eXcaliburrr</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/17_1.jpg" alt="Imersão Diversidança 2025"></div>
+              <figcaption>Imersão Diversidança 2025</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/17_2.jpg" alt="2° Imersão Diversidança 2026"></div>
+              <figcaption>2° Imersão Diversidança 2026</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-18">
+          <h3 class="interview-title">18 - Principal projeto de inclusão a pessoas com deficiência na ballroom: eXcaliball</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/18_1.jpg" alt="The First eXcaliball 2025 - Anúncio"></div>
+              <figcaption>The First eXcaliball 2025 - Anúncio</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:720/1280"><video controls playsinline preload="none" poster="midias_renomeadas/web/18_2-poster.jpg" src="midias_renomeadas/web/18_2.mp4" aria-label="The First eXcaliball - videofilm"></video></div>
+              <figcaption>The First eXcaliball - videofilm</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/18_3.jpg" alt="eXcaliball Ritmo de Carnaval 2026, Fortaleza - Anúncio"></div>
+              <figcaption>eXcaliball Ritmo de Carnaval 2026, Fortaleza - Anúncio</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_renomeadas/web/18_4.jpg" alt="The Third eXcaliball: Baile da Colheita 2026 - Anúncio"></div>
+              <figcaption>The Third eXcaliball: Baile da Colheita 2026 - Anúncio</figcaption>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame" style="aspect-ratio:720/1280"><video controls playsinline preload="none" poster="midias_renomeadas/web/18_5-poster.jpg" src="midias_renomeadas/web/18_5.mp4" aria-label="The Third eXcaliball: Baile da Colheita 2026 - videofilm"></video></div>
+              <figcaption>The Third eXcaliball: Baile da Colheita 2026 - videofilm</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block interview-full" id="manel-entrevista">
+          <h3 class="interview-title">Entrevista na íntegra</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo interview-photo-full">
+              <div class="frame" style="aspect-ratio:16/9"><video controls playsinline preload="none" poster="midias_renomeadas/web/entrevista-poster.jpg" src="midias_renomeadas/web/entrevista.mp4"></video></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="manel-glossario">
+          <h3 class="interview-title">Glossário</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo interview-photo-glossary">
+              <div class="frame"><img src="midias_renomeadas/web/glossario-1901.jpg" alt="Glossário da entrevista (1 de 2)"></div>
+            </figure>
+            <figure class="photo interview-photo interview-photo-glossary">
+              <div class="frame"><img src="midias_renomeadas/web/glossario-1902.jpg" alt="Glossário da entrevista (2 de 2)"></div>
+            </figure>
+          </div>
+        </div>
+        <!-- TODO: entrevista na íntegra do Manel (texto ainda não enviado) -->
+      </div>
+      <div class="interview" id="entrevista-negolove">
+        <div class="section-head" id="negolove">
+          <h2>Negolove</h2>
+          <span class="section-num">Negolove (Hip hop)</span>
+        </div>
+        <div class="interview-block" id="negolove-1">
+          <!-- TODO: título/legenda do tópico 1 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 1</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/1.jpg" alt="Negolove - tópico 1" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-2">
+          <!-- TODO: título/legenda do tópico 2 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 2</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/2.jpg" alt="Negolove - tópico 2" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-3">
+          <!-- TODO: título/legenda do tópico 3 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 3</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/3_1.jpg" alt="Negolove - tópico 3" loading="lazy"></div>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/3_2.jpg" alt="Negolove - tópico 3" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-4">
+          <!-- TODO: título/legenda do tópico 4 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 4</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/4.jpg" alt="Negolove - tópico 4" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-5">
+          <!-- TODO: título/legenda do tópico 5 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 5</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/5_1.jpg" alt="Negolove - tópico 5" loading="lazy"></div>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/5_2.jpg" alt="Negolove - tópico 5" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-6">
+          <!-- TODO: título/legenda do tópico 6 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 6</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/6.jpg" alt="Negolove - tópico 6" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-7">
+          <!-- TODO: título/legenda do tópico 7 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 7</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/7_1.jpg" alt="Negolove - tópico 7" loading="lazy"></div>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/7_2.jpg" alt="Negolove - tópico 7" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-8">
+          <!-- TODO: título/legenda do tópico 8 do Negolove pendentes -->
+          <h3 class="interview-title">Tópico 8</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/8_1.jpg" alt="Negolove - tópico 8" loading="lazy"></div>
+            </figure>
+            <figure class="photo interview-photo">
+              <div class="frame"><img src="midias_negolove/8_2.jpg" alt="Negolove - tópico 8" loading="lazy"></div>
+            </figure>
+          </div>
+        </div>
+        <div class="interview-block" id="negolove-entrevista">
+          <h3 class="interview-title">Entrevista na íntegra</h3>
+          <div class="interview-media">
+            <figure class="photo interview-photo interview-photo-feature">
+              <div class="frame" style="aspect-ratio:16/9"><iframe src="https://www.youtube.com/embed/pBnuGeIAzac" title="Entrevista com Negolove" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="display:block;width:100%;height:100%;border:0"></iframe></div>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="wrap">
       <div class="footer-inner">
@@ -2022,6 +2482,15 @@
         e.stopPropagation();
         var isOpen = btn.getAttribute('aria-expanded') === 'true';
         isOpen ? closeMenu() : openMenu();
+      });
+      overlay.querySelectorAll('.menu-group-btn').forEach(function(gb){
+        gb.addEventListener('click', function(){
+          var target = document.getElementById(gb.getAttribute('aria-controls'));
+          if(!target) return;
+          var open = gb.getAttribute('aria-expanded') === 'true';
+          gb.setAttribute('aria-expanded', open ? 'false' : 'true');
+          target.classList.toggle('open', !open);
+        });
       });
       overlay.querySelectorAll('a').forEach(function(a){
         a.addEventListener('click', closeMenu);
