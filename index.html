@@ -1155,7 +1155,7 @@
   }
 
   @media (max-width: 860px){
-    html{ font-size:18px; }
+    html{ font-size:16px; }
     .hero h1{ max-width:none; }
     .essay{ grid-template-columns:1fr; }
     .pull{ position:static; border-left:none; border-top:2px solid var(--crimson); padding-left:0; padding-top:1rem; }
@@ -1175,6 +1175,45 @@
     .work-poster{ flex:0 0 auto; max-width:170px; }
     .work-meta-row{ flex-direction:column; gap:.12rem; }
     .work-meta-row dt{ min-width:0; }
+  }
+
+  /* ---------- Mobile: tabela comparativa e indicações ---------- */
+  @media (max-width: 640px){
+    .tech-table-wrap{ overflow-x:visible; }
+    .tech-table{ min-width:0; border:none; display:block; }
+    .tech-table thead{
+      position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+      overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+    }
+    .tech-table tbody{ display:flex; flex-direction:column; gap:14px; }
+    .tech-table tbody tr{ display:block; border:1px solid var(--line); background:var(--paper); }
+    .tech-table tbody th{
+      display:block; white-space:normal; border:none;
+      border-bottom:1px solid var(--line); padding:.8rem 1rem;
+    }
+    .tech-table tbody td{
+      display:block; border:none; padding:.75rem 1rem; font-size:.88rem; line-height:1.5;
+    }
+    .tech-table tbody td + td{ border-top:1px solid var(--line); }
+    .tech-table tbody td::before{
+      content:attr(data-label);
+      display:block; margin-bottom:.25rem;
+      font-family:"Work Sans", sans-serif; font-size:.64rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--crimson);
+    }
+
+    .carousel-frame{ flex-wrap:wrap; justify-content:center; gap:12px; }
+    .carousel-viewport{ order:-1; flex:1 1 100%; }
+    .car-arrow{ width:48px; height:48px; }
+    .work-card{ padding:22px 18px; min-height:0; align-items:stretch; }
+    .work-poster{ align-self:center; width:min(60%,170px); max-width:none; }
+    .work-top{ flex-direction:row; align-items:baseline; }
+    .work-meta-row{ gap:.1rem; }
+    .work-meta-row dd{ font-size:.86rem; }
+    .work-synopsis{ font-size:.92rem; }
+    .carousel-meta{ gap:12px 16px; }
+    .car-dots{ flex:1 1 100%; justify-content:center; order:3; }
+    .car-dot{ width:10px; height:10px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -1901,23 +1940,23 @@
           <tbody>
             <tr>
               <th scope="row">Foco corporal</th>
-              <td>Centro de gravidade baixo, peso, bounce e isolamento de tronco.</td>
-              <td>Linhas geométricas, simetria, flexibilidade e pose estática/dinâmica.</td>
+              <td data-label="Hip Hop">Centro de gravidade baixo, peso, bounce e isolamento de tronco.</td>
+              <td data-label="Vogue">Linhas geométricas, simetria, flexibilidade e pose estática/dinâmica.</td>
             </tr>
             <tr>
               <th scope="row">Relação com o espaço</th>
-              <td>Exploração tridimensional ampla, deslocamento em pista/rua.</td>
-              <td>Foco linear, criação de &ldquo;quadros&rdquo; visuais &mdash; molduras com as mãos.</td>
+              <td data-label="Hip Hop">Exploração tridimensional ampla, deslocamento em pista/rua.</td>
+              <td data-label="Vogue">Foco linear, criação de &ldquo;quadros&rdquo; visuais &mdash; molduras com as mãos.</td>
             </tr>
             <tr>
               <th scope="row">Dinâmica de movimento</th>
-              <td>Fluidez alternada com impactos secos (hits) na batida.</td>
-              <td>Precisão cirúrgica, transições rápidas entre poses e linhas fluidas.</td>
+              <td data-label="Hip Hop">Fluidez alternada com impactos secos (hits) na batida.</td>
+              <td data-label="Vogue">Precisão cirúrgica, transições rápidas entre poses e linhas fluidas.</td>
             </tr>
             <tr>
               <th scope="row">Origem do treinamento</th>
-              <td>Improvisação em cyphers, social dances e musicalidade rítmica.</td>
-              <td>Postura de passarela, geometria teatral e atitude de moda.</td>
+              <td data-label="Hip Hop">Improvisação em cyphers, social dances e musicalidade rítmica.</td>
+              <td data-label="Vogue">Postura de passarela, geometria teatral e atitude de moda.</td>
             </tr>
           </tbody>
         </table>
